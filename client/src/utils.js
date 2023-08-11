@@ -136,7 +136,7 @@ export const userStore = writable({});
 // Async update user firestore doc given a store as input
 export const updateUser = async (userDoc) => {
   try {
-    let collectionName = (DEV_MODE) ? 'dev-participants' : 'prod-participants';
+    let collectionName = (DEV_MODE) ? 'mind-dev-participants' : 'mind-prod-participants';
     await db.collection(`${collectionName}`).doc(params.platformId).update(userDoc);
     console.log('user doc successfully updated');
   } catch (err) {
@@ -166,7 +166,7 @@ export const initUser = async () => {
     fisherYatesShuffle(trialOrder);
 
     // TODO: change to prod-participants
-    let collectionName = DEV_MODE ? 'dev-participants' : 'prod-participants';
+    let collectionName = DEV_MODE ? 'mind-dev-participants' : 'mind-prod-participants';
 
     // Create the user doc
     await db.collection(`${collectionName}`).doc(params.platformId).set({

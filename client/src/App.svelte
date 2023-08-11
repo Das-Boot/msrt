@@ -165,8 +165,8 @@
             console.log("user already authenticated...");
             try {
               let collectionName = DEV_MODE
-                ? "dev-participants"
-                : "prod-participants";
+                ? "mind-dev-participants"
+                : "mind-prod-participants";
               const userDocRef = db
                 .collection(`${collectionName}`)
                 .doc(params.platformId);

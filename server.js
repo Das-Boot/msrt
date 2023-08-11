@@ -13,7 +13,7 @@ require("dotenv").config();
 // TODO: save server's users javascript object to firebase -- possibly to separate collection
 
 const DEV_MODE = process.env.DEV_MODE;
-const collectionName = DEV_MODE ? 'dev-rooms': 'prod-rooms';
+const collectionName = DEV_MODE ? 'mind-dev-rooms': 'mind-prod-rooms';
 
 // initialize firebase admin sdk on server
 admin.initializeApp({
@@ -164,7 +164,7 @@ io.on('connection', (socket) => {
       numWaiting: numWaiting,
     };
 
-    const res = db.collection(`${collectionName}`).doc('waiting-room').set(data);
+    const res = db.collection(`${collectionName}`).doc('mind-waiting-room').set(data);
 
     // this tells clients in waiting-room to update their counts
     // of how many users in waiting-room
