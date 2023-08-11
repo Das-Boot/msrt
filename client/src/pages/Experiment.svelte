@@ -1,5 +1,6 @@
 <!-- This is the main experiment page. Chat lives here! -->
 <script>
+  import { onMount } from "svelte";
   import { createEventDispatcher } from "svelte";
   import {
     db,
@@ -13,6 +14,17 @@
   import { fly } from "svelte/transition";
   import { io } from "socket.io-client";
   import { SOCKET_ENDPOINT } from "../const";
+
+  // Start 3 min. timer on mount
+  onMount(() => {
+    // Set a timeout for 3 minutes (3 * 60 * 1000 milliseconds)
+    const timeout = setTimeout(() => {
+      dispatch("finished");
+    }, 3 * 60 * 1000);
+
+    // Clean up the timeout when the component is unmounted
+    return () => clearTimeout(timeout);
+  });
 
   // COMPONENT VARIABLES
   // -------------------------------------------
@@ -161,12 +173,6 @@
     numUsersConnected = numUsers;
     updateScroll();
   });
-
-  // TODO: dispatch this when 3 min or time limit of chat reached
-  const handleEnd = () => {
-    console.log("VIDEO ENDED");
-    dispatch("finished");
-  };
 
   // CHAT WINDOW CONTROLS
   // upon new message, autoscroll to bottom of chat window
