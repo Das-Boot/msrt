@@ -17,7 +17,7 @@
   // COMPONENT VARIABLES
   // -------------------------------------------
 
-  let collectionName = DEV_MODE ? "dev-rooms" : "prod-rooms";
+  let collectionName = DEV_MODE ? "mind-dev-rooms" : "mind-prod-rooms";
   let numUsersConnected = 0;
 
   // emoji menu
