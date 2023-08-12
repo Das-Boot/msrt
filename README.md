@@ -7,7 +7,7 @@
 ## TODO
 
 - [x] Add Firebase setup
-- [] Add Heroku or Netlify deployment
+- [x] Add Heroku deployment
 - [] Add documentation on Heroku node server setup
 - [] Add documentation on Firebase database setup
 
