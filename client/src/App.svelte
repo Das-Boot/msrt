@@ -1,7 +1,5 @@
 <!-- This is the main Svelte component that will display after a user provides conset within PsiTurk. It serves two main purposes: 1) it initializes a new entry into the firebase database if a platformId from the URL is not found or retrieves an existing record if a platformId is found. Creating a new entry sets up the random trial order the participant will receive for all the recordings. 2) it uses that information to dynamically render different experiment states based upon what a user does i.e. show instructions, show quiz, show experiment, show exit survey. Each of those different states exist as their own .svelte files within the pages/ folder -->
 <script>
-  // IMPORTS
-  // -------------------------------------------
   import { onMount } from "svelte";
   import {
     db,
@@ -14,6 +12,7 @@
   } from "./utils.js";
   import Instructions from "./pages/Instructions.svelte";
   import Consent from "./pages/Consent.svelte";
+  import SurveyPage1 from "./pages/SurveyPage1.svelte";
   import BotCheck from "./pages/BotCheck.svelte";
   import WaitingRoom from "./pages/WaitingRoom.svelte";
   import CountdownTransition from "./pages/CountdownTransition.svelte";
@@ -120,7 +119,7 @@
     form.submit();
   };
 
-  // TODO: confirm this works
+  // TODO: replace with post-chat survey URL
   const redirectToExternalURL = async () => {
     let completionURL =
       "https://dartmouth.co1.qualtrics.com/jfe/form/SV_5bEgTi4V2vqy7To" +
@@ -227,8 +226,13 @@
       to try to participate again.
     </p>
   {:else if $userStore.currentState === "consent"}
-    <Consent
+    <!-- FOR NOW, after consent, go into survey for dev purposes -->
+    <!-- <Consent
       on:consent={() => updateState("botCheck")}
+      on:reject={() => updateState("noConsent")}
+    /> -->
+    <Consent
+      on:consent={() => updateState("survey-1")}
       on:reject={() => updateState("noConsent")}
     />
   {:else if $userStore.currentState === "botCheck"}
@@ -236,18 +240,39 @@
       on:finished={() => updateState("instructions")}
       on:failed={() => updateState("debrief")}
     />
+    <!-- TODO: clarify they've been matched but must fill out Qs before chat -->
+  {:else if $userStore.currentState === "instructions"}
+    <Instructions on:finished={() => updateState("waiting-room")} />
   {:else if $userStore.currentState === "waiting-room"}
     <WaitingRoom
       on:finished={() => updateState("countdown-transition")}
       on:failed={() => updateState("matchFail")}
     />
-  {:else if $userStore.currentState === "instructions"}
-    <Instructions on:finished={() => updateState("waiting-room")} />
   {:else if $userStore.currentState === "countdown-transition"}
-    <CountdownTransition on:finished={() => updateState("experiment")} />
+    <CountdownTransition on:finished={() => updateState("survey-1")} />
+    <!-- TODO: add pre-chat screening survey here -->
+    <!-- TODO -->
+  {:else if $userStore.currentState === "survey-1"}
+    <SurveyPage1
+      on:finished={() => updateState("survey-2")}
+      on:failed={() => updateState("matchFail")}
+    />
+    <!-- TODO -->
+  {:else if $userStore.currentState === "survey-2"}
+    <SurveyPage1
+      on:finished={() => updateState("survey-3")}
+      on:failed={() => updateState("matchFail")}
+    />
+    <!-- TODO -->
+  {:else if $userStore.currentState === "survey-3"}
+    <SurveyPage1
+      on:finished={() => updateState("experiment")}
+      on:failed={() => updateState("matchFail")}
+    />
   {:else if $userStore.currentState === "experiment"}
     <Experiment on:finished={() => updateState("debrief")} />
   {:else if $userStore.currentState === "debrief"}
+    <!-- TODO: swap out external post-experiment survey URL -->
     <Debrief on:finished={redirectToExternalURL} />
   {:else if $userStore.currentState === "noConsent"}
     <ReturnStudy />

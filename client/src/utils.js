@@ -128,6 +128,83 @@ export const formatTime = (seconds) => {
   };
 
 
+// SURVEY DATA MANAGEMENT
+export const questions = [
+  {
+    questionText: "What is something that lots of people like?",
+    category: "preferences",
+    survey: "open",
+    type: "sim",
+  },
+  {
+    questionText: "What is something that lots of other people don't like as much as you do?",
+    category: "preferences",
+    survey: "open",
+    type: "dis",
+  },
+  {
+    questionText: "What is a religious or spiritual belief that lots of people share?",
+    category: "religion",
+    survey: "open",
+    type: "sim",
+  },
+  {
+    questionText: "What is a religious or spiritual belief you hold that is more idiosyncratic or divisive?",
+    category: "religion",
+    survey: "open",
+    type: "dis",
+  },
+  {
+    questionText: "What is a political stance that you think most people would agree with?",
+    category: "politics",
+    survey: "open",
+    type: "sim",
+  },
+  {
+    questionText: "What is a political stance you hold that is more idiosyncratic or divisive?",
+    category: "politics",
+    survey: "open",
+    type: "dis",
+  },
+  {
+    questionText: "What is something that is central to your identity that you have in common with other people?",
+    category: "identity",
+    survey: "open",
+    type: "sim",
+  },
+  {
+    questionText: "What is something that is central to your identity that is unique to you?",
+    category: "identity",
+    survey: "open",
+    type: "dis",
+  },
+  {
+    questionText: "What is an ethical stance that you think most people would agree with?",
+    category: "morality",
+    survey: "binary",
+    type: "sim",
+  },
+  {
+    questionText: "What is an ethical stance you hold that is more idiosyncratic or divisive?",
+    category: "morality",
+    survey: "binary",
+    type: "dis",
+  },
+  {
+    questionText: "What is a mundane or boring fact about yourself that is also probably true for others?",
+    category: "arbitrary",
+    survey: "open",
+    type: "sim",
+  },
+  {
+    questionText: "What is a mundane or boring fact that is unique to you?",
+    category: "arbitrary",
+    survey: "open",
+    type: "dis",
+  },
+];
+
+
 // USER DATA MANAGEMENT
 // Initialize store to share user state across the app
 export const userStore = writable({});

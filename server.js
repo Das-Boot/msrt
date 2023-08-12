@@ -8,7 +8,10 @@ const { uniqueNamesGenerator, colors, adjectives } = require('unique-names-gener
 
 require("dotenv").config();
 
-// TODO: don't forget to add DEV_MODE to heroku env variables!
+// TODO: create function for matching and figuring out
+// which commonality question to present to dyads before chat
+
+// Don't forget to add DEV_MODE to heroku env variables!
 // TOOD: also add prolific completion code/URl to .env file and heroku env variables!
 // TODO: save server's users javascript object to firebase -- possibly to separate collection
 
