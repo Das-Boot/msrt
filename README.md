@@ -20,7 +20,7 @@
 1. Clone this repo onto your computer.
 
 ```bash
-git clone https://github.com/hawkrobe/shared-reality.git
+git clone https://github.com/cosanlab/msrt.git
 ```
 
 2. Navigate to the `experiments/study2` directory and then install the dependencies using npm commands made accessible by Node.js.
