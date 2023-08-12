@@ -23,7 +23,7 @@
 git clone https://github.com/cosanlab/msrt.git
 ```
 
-2. Navigate to the `experiments/study2` directory and then install the dependencies using npm commands made accessible by Node.js.
+2. Navigate to the `client` directory and then install the dependencies using npm commands made accessible by Node.js.
 
 ```bash
 npm install
