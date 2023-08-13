@@ -10,12 +10,14 @@
     updateUser,
     expConfig,
     questions,
+    fisherYatesShuffle,
   } from "../utils.js";
 
   import { createEventDispatcher } from "svelte";
   // COMPONENT VARIABLES
   // -------------------------------------------
   console.log("questions", questions);
+  console.log("shuffled", fisherYatesShuffle(questions));
   let age = "";
   let feedback = "";
   let sex = "";

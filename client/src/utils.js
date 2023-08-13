@@ -116,6 +116,7 @@ export const fisherYatesShuffle = (array) => {
     // eslint-disable-next-line no-param-reassign
     [array[i], array[j]] = [array[j], array[i]];
   }
+  return array
 };
 
 // convert time from seconds to mm:ss format
@@ -129,6 +130,7 @@ export const formatTime = (seconds) => {
 
 
 // SURVEY DATA MANAGEMENT
+// TODO: randomize category order
 export const questions = [
   {
     questionText: "What is something that lots of people like?",
