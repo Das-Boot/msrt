@@ -2,38 +2,18 @@
 <script>
   // IMPORTS
   // -------------------------------------------
-  import {
-    db,
-    params,
-    serverTime,
-    userStore,
-    updateUser,
-    expConfig,
-    questions,
-    fisherYatesShuffle,
-  } from "../utils.js";
+  import { userStore, updateUser, questions } from "../utils.js";
 
   import { createEventDispatcher } from "svelte";
   // COMPONENT VARIABLES
   // -------------------------------------------
   console.log("questions", questions);
-  console.log("shuffled", fisherYatesShuffle(questions));
-  let age = "";
-  let feedback = "";
-  let sex = "";
-  let ethnicity = "";
-  let race = [];
-  const raceOptions = [
-    "Asian / Asian-American",
-    "Black / African-American",
-    "Native-American / Alaskan-Native",
-    "Pacific-Islander / Native-Hawaiian",
-    "White / Caucasian",
-    "Other / Unknown",
-  ];
-  let nativeLang = "";
-  let birth = "";
-  let handed = "";
+
+  let a1 = "";
+  let a2 = "";
+  let a3 = "";
+  let a4 = "";
+
   const dispatch = createEventDispatcher();
 
   // COMPONENT LOGIC
@@ -44,16 +24,38 @@
   // The race condition is basically: if we submit first, we can't update firebase to prevent repeat participantion; if we update firebase we lose the form and can't submit
   // Solution: Write the debrief data to firebase, but don't update the app state or submit anything to mturk. Instead dispatch a notification to App.svelte which will handle it in submitHIT(). See that function for more details.
   const submitPageOne = async () => {
-    $userStore.age = age;
-    $userStore.sex = sex;
-    $userStore.ethnicity = ethnicity;
-    $userStore.race = race;
-    $userStore.nativeLang = nativeLang;
-    $userStore.birth = birth;
-    $userStore.handed = handed;
-    $userStore.feedback = feedback;
-    await updateUser($userStore);
-    dispatch("finished");
+    // question text
+    $userStore.q1 = questions[0].questionText;
+    $userStore.q2 = questions[1].questionText;
+    $userStore.q3 = questions[2].questionText;
+    $userStore.q4 = questions[3].questionText;
+
+    // question category/domain
+    $userStore.c1 = questions[0].category;
+    $userStore.c2 = questions[1].category;
+    $userStore.c3 = questions[2].category;
+    $userStore.c4 = questions[3].category;
+
+    // question type
+    $userStore.t1 = questions[0].type;
+    $userStore.t2 = questions[1].type;
+    $userStore.t3 = questions[2].type;
+    $userStore.t4 = questions[3].type;
+
+    // answers to qs
+    $userStore.a1 = a1;
+    $userStore.a2 = a2;
+    $userStore.a3 = a3;
+    $userStore.a4 = a4;
+
+    // check for any empty responses
+    if (a1 == "" || a2 == "" || a3 == "" || a4 == "") {
+      alert("Please answer all questions before continuing.");
+      return;
+    } else {
+      await updateUser($userStore);
+      dispatch("finished");
+    }
   };
 </script>
 
@@ -63,164 +65,86 @@
       <p class="title is-3 has-text-centered is-spaced">
         Pre-Chat Survey Page 1/3
       </p>
-      <form name="debrief" id="form">
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Age</label>
-          </div>
-          <div class="field-body is-narrow">
-            <div class="field">
-              <p class="control">
-                <input class="input age-input" type="text" bind:value={age} />
-              </p>
-            </div>
+      <form name="survey" id="form">
+        <!-- q1 start -->
+        <div class="field is-normal has-text-centered" />
+        <div class="field-label is-normal has-text-centered">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label class="label has-text-centered"
+            >{questions[0].questionText}</label
+          >
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input q1-input" type="text" bind:value={a1} />
+            </p>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Gender</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <label class="radio">
-                  <input type="radio" bind:group={sex} value={"male"} />
-                  Male
-                </label>
-                <label class="radio">
-                  <input type="radio" bind:group={sex} value={"female"} />
-                  Female
-                </label>
-                <label class="radio">
-                  <input type="radio" bind:group={sex} value={"other"} />
-                  Other
-                </label>
-              </div>
-            </div>
+        <!-- q1 end -->
+        <!-- q2 start -->
+        <div class="field is-normal has-text-centered" />
+        <div class="field-label is-normal has-text-centered">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label class="label has-text-centered"
+            >{questions[1].questionText}</label
+          >
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input q2-input" type="text" bind:value={a2} />
+            </p>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Handedness</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <label class="radio">
-                  <input type="radio" bind:group={handed} value={"left"} />
-                  Left Handed
-                </label>
-                <label class="radio">
-                  <input type="radio" bind:group={handed} value={"right"} />
-                  Right Handed
-                </label>
-              </div>
-            </div>
+        <!-- q2 end -->
+
+        <!-- q3 start -->
+        <div class="field is-normal has-text-centered" />
+        <div class="field-label is-normal has-text-centered">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label class="label has-text-centered"
+            >{questions[2].questionText}</label
+          >
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input q3-input" type="text" bind:value={a3} />
+            </p>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Ethnicity</label>
-          </div>
-          <div class="field-body">
-            <div class="field is-narrow">
-              <div class="control">
-                <label class="radio">
-                  <input
-                    type="radio"
-                    bind:group={ethnicity}
-                    value={"hispanic"}
-                  />
-                  Hispanic
-                </label>
-                <label class="radio">
-                  <input
-                    type="radio"
-                    bind:group={ethnicity}
-                    value={"not_hispanic"}
-                  />
-                  Not Hispanic
-                </label>
-              </div>
-            </div>
+        <!-- q3 end -->
+
+        <!-- q4 start -->
+        <div class="field is-normal has-text-centered" />
+        <div class="field-label is-normal has-text-centered">
+          <!-- svelte-ignore a11y-label-has-associated-control -->
+          <label class="label has-text-centered"
+            >{questions[3].questionText}</label
+          >
+        </div>
+        <div class="field-body">
+          <div class="field">
+            <p class="control">
+              <input class="input q3-input" type="text" bind:value={a3} />
+            </p>
           </div>
         </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Race</label>
-          </div>
-          <div class="field-body is-narrow">
-            <div class="field">
-              <div class="control">
-                <div class="select is-multiple">
-                  <select multiple bind:value={race}>
-                    {#each raceOptions as raceOption}
-                      <option value={raceOption}>{raceOption}</option>
-                    {/each}
-                  </select>
-                </div>
-              </div>
-              <p class="help">Cmd/Ctrl+Click to select multiple</p>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Native Language</label>
-          </div>
-          <div class="field-body is-narrow">
-            <div class="field">
-              <p class="control">
-                <input
-                  class="input lang-input"
-                  type="text"
-                  bind:value={nativeLang}
-                />
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label is-normal">
-            <!-- svelte-ignore a11y-label-has-associated-control -->
-            <label class="label">Birth Location</label>
-          </div>
-          <div class="field-body is-narrow">
-            <div class="field">
-              <p class="control">
-                <input
-                  class="input lang-input"
-                  type="text"
-                  bind:value={birth}
-                  placeholder="City, State, Country (like in visa/passport)"
-                />
-              </p>
-            </div>
-          </div>
-        </div>
-        <div class="field is-horizontal">
-          <div class="field-label">
-            <!-- Left empty for spacing -->
-          </div>
-          <div class="field-body">
-            <div class="field">
-              <div class="control">
-                <button
-                  class="button is-success is-large"
-                  on:click|preventDefault={submitPageOne}
-                  >Continue to 2nd Page of Questions</button
-                >
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- q4 end -->
       </form>
+      <br />
+      <div class="field-body">
+        <div class="field">
+          <div class="control">
+            <button
+              class="button is-success is-large"
+              on:click|preventDefault={submitPageOne}
+              >Continue to 2nd page of questionnaire</button
+            >
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
