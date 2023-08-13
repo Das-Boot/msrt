@@ -11,11 +11,14 @@
 - [] Add documentation on Heroku node server setup
 - [] Add documentation on Firebase database setup
 
-## Prerequisites
+## Tech Stack
 
-- Node.js (<https://nodejs.org/en/download>)
-- Firebase (<https://firebase.google.com>)
-- Heroku (<https://heroku.com>)
+- Firebase (<https://firebase.google.com>) - for database
+- Heroku (<https://heroku.com>) - for server hosting
+
+## Prequisite(s)
+
+- Node.js (<https://nodejs.org/en/download>) - for running the server and client
 
 1. Clone this repo onto your computer.
 
@@ -44,7 +47,7 @@ cd .. # to navigate back to parent directory where `server.js` lives
 npm run dev
 ```
 
-4. To run in production mode, you will need to rebuild the client in production mode before starting the server.
+4. To run in production mode, you will need to rebuild the client in production mode before starting the server. I typically do this in 2 separate terminal windows.
 
 ```bash
 cd client
