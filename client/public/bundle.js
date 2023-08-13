@@ -41599,7 +41599,7 @@ var app = (function () {
     			add_location(label3, file$c, 122, 10, 4948);
     			attr_dev(div13, "class", "field-label is-normal has-text-centered");
     			add_location(div13, file$c, 120, 8, 4817);
-    			attr_dev(input3, "class", "input q3-input");
+    			attr_dev(input3, "class", "input q4-input");
     			attr_dev(input3, "type", "text");
     			add_location(input3, file$c, 129, 14, 5171);
     			attr_dev(p4, "class", "control");
@@ -41679,7 +41679,7 @@ var app = (function () {
     			append_dev(div15, div14);
     			append_dev(div14, p4);
     			append_dev(p4, input3);
-    			set_input_value(input3, /*a3*/ ctx[2]);
+    			set_input_value(input3, /*a4*/ ctx[3]);
     			append_dev(div19, t17);
     			append_dev(div19, br);
     			append_dev(div19, t18);
@@ -41690,11 +41690,11 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[4]),
-    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[5]),
-    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[6]),
-    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[7]),
-    					listen_dev(button, "click", prevent_default(/*submitPageOne*/ ctx[3]), false, true, false, false)
+    					listen_dev(input0, "input", /*input0_input_handler*/ ctx[5]),
+    					listen_dev(input1, "input", /*input1_input_handler*/ ctx[6]),
+    					listen_dev(input2, "input", /*input2_input_handler*/ ctx[7]),
+    					listen_dev(input3, "input", /*input3_input_handler*/ ctx[8]),
+    					listen_dev(button, "click", prevent_default(/*submitPageOne*/ ctx[4]), false, true, false, false)
     				];
 
     				mounted = true;
@@ -41713,8 +41713,8 @@ var app = (function () {
     				set_input_value(input2, /*a3*/ ctx[2]);
     			}
 
-    			if (dirty & /*a3*/ 4 && input3.value !== /*a3*/ ctx[2]) {
-    				set_input_value(input3, /*a3*/ ctx[2]);
+    			if (dirty & /*a4*/ 8 && input3.value !== /*a4*/ ctx[3]) {
+    				set_input_value(input3, /*a4*/ ctx[3]);
     			}
     		},
     		i: noop$1,
@@ -41740,7 +41740,7 @@ var app = (function () {
     function instance$c($$self, $$props, $$invalidate) {
     	let $userStore;
     	validate_store(userStore, 'userStore');
-    	component_subscribe($$self, userStore, $$value => $$invalidate(8, $userStore = $$value));
+    	component_subscribe($$self, userStore, $$value => $$invalidate(9, $userStore = $$value));
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots('SurveyPage1', slots, []);
     	console.log("questions", questions);
@@ -41818,8 +41818,8 @@ var app = (function () {
     	}
 
     	function input3_input_handler() {
-    		a3 = this.value;
-    		$$invalidate(2, a3);
+    		a4 = this.value;
+    		$$invalidate(3, a4);
     	}
 
     	$$self.$capture_state = () => ({
@@ -41840,7 +41840,7 @@ var app = (function () {
     		if ('a1' in $$props) $$invalidate(0, a1 = $$props.a1);
     		if ('a2' in $$props) $$invalidate(1, a2 = $$props.a2);
     		if ('a3' in $$props) $$invalidate(2, a3 = $$props.a3);
-    		if ('a4' in $$props) a4 = $$props.a4;
+    		if ('a4' in $$props) $$invalidate(3, a4 = $$props.a4);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -41851,6 +41851,7 @@ var app = (function () {
     		a1,
     		a2,
     		a3,
+    		a4,
     		submitPageOne,
     		input0_input_handler,
     		input1_input_handler,
