@@ -13,6 +13,8 @@
   import Instructions from "./pages/Instructions.svelte";
   import Consent from "./pages/Consent.svelte";
   import SurveyPage1 from "./pages/SurveyPage1.svelte";
+  import SurveyPage2 from "./pages/SurveyPage2.svelte";
+  import SurveyPage3 from "./pages/SurveyPage3.svelte";
   import BotCheck from "./pages/BotCheck.svelte";
   import WaitingRoom from "./pages/WaitingRoom.svelte";
   import CountdownTransition from "./pages/CountdownTransition.svelte";
@@ -251,21 +253,19 @@
   {:else if $userStore.currentState === "countdown-transition"}
     <CountdownTransition on:finished={() => updateState("survey-1")} />
     <!-- TODO: add pre-chat screening survey here -->
-    <!-- TODO -->
   {:else if $userStore.currentState === "survey-1"}
     <SurveyPage1
       on:finished={() => updateState("survey-2")}
       on:failed={() => updateState("matchFail")}
     />
-    <!-- TODO -->
   {:else if $userStore.currentState === "survey-2"}
-    <SurveyPage1
+    <SurveyPage2
       on:finished={() => updateState("survey-3")}
       on:failed={() => updateState("matchFail")}
     />
     <!-- TODO -->
   {:else if $userStore.currentState === "survey-3"}
-    <SurveyPage1
+    <SurveyPage3
       on:finished={() => updateState("experiment")}
       on:failed={() => updateState("matchFail")}
     />
